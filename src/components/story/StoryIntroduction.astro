@@ -1,9 +1,18 @@
 ---
 const { topic, headline, blurb, reporter } = Astro.props;
+// Accept a paragraph array (like section copy) or blank-line-separated text.
+const blurbParagraphs = (Array.isArray(blurb) ? blurb : [blurb ?? ''])
+  .flatMap(paragraph => typeof paragraph === 'string'
+    ? paragraph.split(/\r?\n\s*\r?\n/).map(text => text.trim()).filter(Boolean)
+    : [paragraph]);
 ---
 <header class="story-introduction">
   <p class="story-topic">{topic} · Fall 2026 Poll</p>
   <h1>{headline}</h1>
-  <p class="story-blurb">{blurb}</p>
+  {blurbParagraphs.map(paragraph => (
+    <p class="story-blurb">{typeof paragraph === 'string' ? paragraph : paragraph.map(part => (
+      typeof part === 'string' ? part : <a href={part.href}>{part.text}</a>
+    ))}</p>
+  ))}
   <p class="story-byline">By {reporter}</p>
 </header>

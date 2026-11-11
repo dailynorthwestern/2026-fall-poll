@@ -1,13 +1,14 @@
 .poll-story {
   width: 80%;
   margin-inline: auto;
+  --story-intro-width: 960px;
   --story-text-width: 45fr;
   --story-chart-width: 55fr;
   --story-column-gap: clamp(28px, 4vw, 64px);
   --chart-min-height: 420px;
   padding-block: 56px 72px;
 }
-.story-introduction { max-width: 960px; margin: 0 auto 72px; }
+.story-introduction { max-width: var(--story-intro-width); margin: 0 auto 72px; }
 .story-topic, .story-byline { font-family: var(--font-secondary); }
 .story-topic { color: var(--poll-dark-red); }
 .story-introduction h1 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.15; margin-block: 20px 28px; }
@@ -23,19 +24,52 @@
 .story-chart figcaption { font-family: var(--font-secondary); font-size: 0.8rem; line-height: 1.5; margin-top: 12px; }
 .chart-placeholder { min-height: var(--chart-min-height); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px; padding: 24px; font-family: var(--font-secondary); color: var(--poll-dark-brown); border: 1px dashed var(--poll-light-brown); border-radius: 12px; }
 .chart-placeholder p { margin: 0; }
-.story-chart-rail { display: none; }
 @media (min-width: 901px) {
-  .scrollytelling[data-enhanced] { display: grid; grid-template-columns: minmax(0, var(--story-text-width)) minmax(0, var(--story-chart-width)); gap: var(--story-column-gap); align-items: start; }
-  .scrollytelling[data-enhanced] .story-step { min-height: max(65dvh, calc(var(--chart-min-height) + 48px)); }
-  .scrollytelling[data-enhanced] .story-chart-rail { display: block; position: sticky; top: calc(var(--site-chrome-height, 154px) + 16px); min-width: 0; }
-  .story-chart-stage { border-radius: 18px; }
-  .story-chart-stage .story-chart { min-height: var(--chart-min-height); }
-  // Charts taller than the available screen use ordinary page scrolling.
-  .scrollytelling[data-enhanced] .story-chart-rail[data-tall] { position: static; }
+  .story-step {
+    display: grid;
+    grid-template-columns: minmax(0, var(--story-text-width)) minmax(0, var(--story-chart-width));
+    gap: var(--story-column-gap);
+    align-items: start;
+    min-height: max(75dvh, calc(var(--chart-min-height) + 48px));
+    padding-bottom: 64px;
+  }
+  .story-copy { min-width: 0; }
+  .story-mobile-chart {
+    min-width: 0;
+    position: sticky;
+    top: max(calc(var(--site-chrome-height, 154px) + 16px), calc((100dvh + var(--site-chrome-height, 154px) - var(--active-chart-height, 420px)) / 2));
+  }
+  // Oversize charts stay beside their own text and scroll naturally with the page.
+  .story-mobile-chart[data-tall] { position: static; }
 }
 @media (max-width: 900px) {
   .poll-story { --chart-min-height: 280px; padding-block: 32px 48px; }
   .story-introduction { margin-bottom: 48px; }
   .story-chart { padding: 14px; }
-  .story-chart-stage { display: contents; }
+}
+
+// Opt-in stacked story variant, currently used only by Sports.
+.scrollytelling--stacked .story-step {
+  display: block;
+  min-height: 0;
+  width: 100%;
+  max-width: var(--story-intro-width);
+  margin-inline: auto;
+  padding-bottom: clamp(48px, 6vw, 80px);
+}
+.scrollytelling--stacked .story-copy {
+  width: 100%;
+  margin-inline: auto;
+}
+.scrollytelling--stacked .story-mobile-chart {
+  position: static;
+  width: 100%;
+  max-width: 100%;
+  margin: 28px auto 0;
+}
+
+// Keep real Sports charts at the height supplied by Flourish's responsive embed.
+.scrollytelling--stacked .story-chart,
+.scrollytelling--stacked .flourish-embed {
+  min-height: 0;
 }

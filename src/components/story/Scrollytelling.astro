@@ -1,99 +1,54 @@
 ---
 import StorySection from './StorySection.astro';
-const { sections } = Astro.props;
+const { sections, layout = 'side-by-side' } = Astro.props;
 ---
-<div class="scrollytelling" data-scrollytelling>
-  <div class="story-steps">
-    {sections.map((section, index) => <StorySection section={section} index={index} />)}
-  </div>
-  <aside class="story-chart-rail" aria-label="Section visualizations">
-    <div class="story-chart-stage" data-chart-stage></div>
-  </aside>
+<div class:list={['scrollytelling', { 'scrollytelling--stacked': layout === 'stacked' }]} data-scrollytelling>
+  {sections.map((section, index) => <StorySection section={section} index={index} />)}
 </div>
 
 <script>
   for (const root of document.querySelectorAll<HTMLElement>('[data-scrollytelling]')) {
+    // Stacked stories use normal document scrolling without chart tracking.
+    if (root.classList.contains('scrollytelling--stacked')) continue;
     const steps = [...root.querySelectorAll<HTMLElement>('[data-story-step]')];
-    if (!steps.length) continue;
-    const panels = [...root.querySelectorAll<HTMLElement>('[data-chart-panel]')];
-    const slots = [...root.querySelectorAll<HTMLElement>('[data-chart-slot]')];
-    const stage = root.querySelector<HTMLElement>('[data-chart-stage]')!;
-    const rail = root.querySelector<HTMLElement>('.story-chart-rail')!;
     const headers = document.querySelector<HTMLElement>('[data-scrolling-headers]');
-    function updateChartFit() {
-      const available = window.innerHeight - (headers?.offsetHeight ?? 154) - 32;
-      rail.toggleAttribute('data-tall', stage.offsetHeight > available);
-    }
-    const chartObserver = new ResizeObserver(updateChartFit);
-    chartObserver.observe(stage);
-    if (headers) chartObserver.observe(headers);
-    window.addEventListener('resize', updateChartFit, { passive: true });
-    const desktop = matchMedia('(min-width: 901px)');
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-    let active = -1;
-    let requested = -1;
-    let switching = false;
-    let observer: IntersectionObserver | undefined;
-    let animation: Animation | undefined;
+    const desktop = matchMedia('(min-width: 901px)');
+    const slots = steps.map(step => step.querySelector<HTMLElement>('[data-chart-slot]')!);
 
-    async function activate(index: number) {
-      requested = index;
-      if (switching || active === index || !desktop.matches) return;
-      switching = true;
-      while (active !== requested && desktop.matches) {
-        const old = panels[active];
-        const duration = reducedMotion.matches ? 0 : 140;
-        if (old && duration) {
-          animation = old.animate([{ opacity: 1 }, { opacity: 0 }], { duration, fill: 'forwards' });
-          await animation.finished.catch(() => {});
-        }
-        if (!desktop.matches) break;
-        panels.forEach(panel => { panel.hidden = true; });
-        old?.getAnimations().forEach(item => item.cancel());
-        active = requested;
-        const panel = panels[active];
-        panel.hidden = false;
-        stage.scrollTop = 0;
-        if (duration) {
-          animation = panel.animate([{ opacity: 0 }, { opacity: 1 }], { duration });
-          await animation.finished.catch(() => {});
-        }
-      }
-      switching = false;
-    }
-
-    function nearestStep() {
-      const line = window.innerHeight * 0.45;
-      let nearest = 0;
-      steps.forEach((step, index) => {
-        if (step.getBoundingClientRect().top <= line) nearest = index;
+    function updateChartFit() {
+      const chromeHeight = headers?.offsetHeight ?? 154;
+      const available = window.innerHeight - chromeHeight - 32;
+      slots.forEach(slot => {
+        const height = slot.offsetHeight;
+        slot.style.setProperty('--active-chart-height', `${height}px`);
+        slot.toggleAttribute('data-tall', height > available);
       });
-      return nearest;
     }
+    // Keep every embed in its section and visible to Flourish's responsive loader.
+    // No reparenting or display:none initialization at a zero-width container.
+    const resizeObserver = new ResizeObserver(updateChartFit);
+    slots.forEach(slot => resizeObserver.observe(slot));
+    if (headers) resizeObserver.observe(headers);
+    window.addEventListener('resize', updateChartFit, { passive: true });
+    updateChartFit();
 
-    function configure() {
-      observer?.disconnect();
-      animation?.cancel();
-      active = requested = -1;
-      if (desktop.matches) {
-        root.dataset.enhanced = '';
-        panels.forEach(panel => { panel.hidden = true; stage.append(panel); });
-        void activate(nearestStep());
-        // A narrow reading band selects the text under the reader's eye in either direction.
-        observer = new IntersectionObserver(() => { void activate(nearestStep()); }, {
-          rootMargin: '-44% 0px -55% 0px', threshold: 0,
-        });
-        steps.forEach(step => observer!.observe(step));
-      } else {
-        delete root.dataset.enhanced;
-        panels.forEach((panel, index) => {
-          panel.hidden = false;
-          panel.getAnimations().forEach(item => item.cancel());
-          slots[index].append(panel);
-        });
+    let current = -1;
+    const observer = new IntersectionObserver(() => {
+      const readingLine = window.innerHeight * 0.45;
+      let next = 0;
+      steps.forEach((step, index) => {
+        if (step.getBoundingClientRect().top <= readingLine) next = index;
+      });
+      if (next === current) return;
+      current = next;
+      steps.forEach((step, index) => step.toggleAttribute('data-active', index === current));
+      if (desktop.matches && !reducedMotion.matches) {
+        const chart = slots[current]?.querySelector<HTMLElement>('[data-chart-panel]');
+        chart?.getAnimations().forEach(animation => animation.cancel());
+        chart?.animate([{ opacity: 0.65 }, { opacity: 1 }], { duration: 220, easing: 'ease-out' });
       }
-    }
-    desktop.addEventListener('change', configure);
-    configure();
+    }, { rootMargin: '-44% 0px -55% 0px', threshold: 0 });
+    steps.forEach(step => observer.observe(step));
   }
 </script>
