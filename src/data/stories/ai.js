@@ -1,8 +1,12 @@
 // Replace placeholders with supplied editorial content. Add or remove sections as needed.
 export default {
+  moreData: [
+    { id: 'additional-1', label: 'AI and society', flourishId: 30818799 },
+    { id: 'additional-2', label: 'AI and school work', flourishId: 30818817 }
+  ],
   "topic": "AI",
-  "headline": "Students in engineering and physical sciences report high AI reliance",
-  "blurb": "More than half of Americans use AI in some capacity. NU students prove to be no exception: The vast majority report using AI to complete their school work, at least to some extent. Differences in years, majors and political ideologies seem to divide undergraduates on the impacts of AI.",
+  "headline": "Students in engineering and physical sciences report high ai reliance",
+  "blurb": "More than half of Americans use Artificial Intelligence in some capacity. NU students prove to be no exception: The vast majority report using AI to complete their school work, at least to some extent. Differences in years, majors and political ideologies seem to divide undergraduates on the impacts of AI.",
   "reporter": "Hannah Mehler",
   "sections": [
     {

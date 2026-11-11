@@ -1,5 +1,10 @@
 // Replace placeholders with supplied editorial content. Add or remove sections as needed.
 export default {
+  moreData: [
+    { id: 'additional-1', label: 'Sports and the NU experience ', flourishId: 30850552 },
+    { id: 'additional-2', label: 'NU sports attendance ', flourishId: 30809827 },
+    { id: 'additional-3', label: 'Ryan Field and sports engagement ', flourishId: 30848522 },
+  ],
   "topic": "Sports",
   "headline": "Opening of ryan field drives interest in nu sports",
   "blurb": "After years of excitement, investment and construction, Ryan Field is open for business. And with it, a brighter spotlight is on NU sports. But how are the new stadium and the Wildcat Wall really impacting sports engagement and culture on campus?",

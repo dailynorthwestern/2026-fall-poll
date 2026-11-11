@@ -1,0 +1,20 @@
+---
+import MoreData from './MoreData.astro';
+const { topic, moreData } = Astro.props;
+const prefix = `topic-${topic.toLowerCase().replace(/\s+/g, '-')}`;
+---
+<div class="category-tabs" data-tabs data-scroll-tabs>
+  <div class="category-tab-list" role="tablist" aria-label={`${topic} content`}>
+    {['Analysis', 'More Data'].map((label, index) => (
+      <button type="button" role="tab" id={`${prefix}-tab-${index}`} aria-controls={`${prefix}-panel-${index}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1} data-tab-button>{label}</button>
+    ))}
+  </div>
+  <div role="tabpanel" id={`${prefix}-panel-0`} aria-labelledby={`${prefix}-tab-0`} tabindex="0" data-tab-panel><slot /></div>
+  <div role="tabpanel" id={`${prefix}-panel-1`} aria-labelledby={`${prefix}-tab-1`} tabindex="0" data-tab-panel hidden>
+    <MoreData charts={moreData} prefix={prefix} />
+  </div>
+</div>
+<script>
+  import { enhanceTabs } from '../../scripts/tabs';
+  document.querySelectorAll<HTMLElement>('.category-tabs[data-tabs]').forEach(enhanceTabs);
+</script>

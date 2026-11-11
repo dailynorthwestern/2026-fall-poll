@@ -50,3 +50,22 @@ blurb: [
 ```
 
 Blank lines inside a string also create separate paragraphs. Arrays can include inline-link segments using the same format as section paragraphs.
+
+## Analysis and More Data tabs
+
+Each story file has an independent `moreData` array. Edit chart labels and published Flourish IDs or URLs here; reorder the entries to reorder the buttons. The first entry is selected by default. Use unique IDs within the category. Keep both embed fields empty until the chart is supplied.
+
+```js
+moreData: [
+  {
+    id: 'additional-1',
+    label: '[Approved chart label]',
+    flourishId: null,
+    flourishUrl: null
+  }
+],
+```
+
+`src/styles/story-tabs.scss` controls the tab typography, gap, underline, button colors, and More Data chart width. `--more-data-placeholder-height` affects placeholders only: live Flourish charts retain their own responsive heights with no clipping or fixed height.
+
+`src/scripts/tabs.ts` handles tab selection, ArrowLeft/ArrowRight/Home/End keyboard controls, panel fades, and visible-only initialization of More Data embeds. Analysis is the initial view on every page load. Switching views keeps initialized embeds in place and sends a resize notification when they become visible again.

@@ -7,7 +7,6 @@ const blurbParagraphs = (Array.isArray(blurb) ? blurb : [blurb ?? ''])
     : [paragraph]);
 ---
 <header class="story-introduction">
-  <p class="story-topic">{topic} · Fall 2026 Poll</p>
   <h1>{headline}</h1>
   {blurbParagraphs.map(paragraph => (
     <p class="story-blurb">{typeof paragraph === 'string' ? paragraph : paragraph.map(part => (

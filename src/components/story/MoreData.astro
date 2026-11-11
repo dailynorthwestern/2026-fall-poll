@@ -1,0 +1,25 @@
+---
+import FlourishEmbed from './FlourishEmbed.astro';
+const { charts, prefix } = Astro.props;
+---
+<section class="more-data" aria-labelledby={`${prefix}-more-heading`}>
+  <h2 id={`${prefix}-more-heading`}>MORE RESULTS:</h2>
+  {charts.length ? (
+    <div class="more-data-selector" data-tabs>
+      <div class="more-data-buttons" role="tablist" aria-label="Additional visualizations">
+        {charts.map((chart, index) => (
+          <button type="button" role="tab" id={`${prefix}-chart-tab-${chart.id}`} aria-controls={`${prefix}-chart-panel-${chart.id}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1} data-tab-button>{chart.label}</button>
+        ))}
+      </div>
+      {charts.map((chart, index) => (
+        <div class="more-data-chart" role="tabpanel" id={`${prefix}-chart-panel-${chart.id}`} aria-labelledby={`${prefix}-chart-tab-${chart.id}`} tabindex="0" hidden={index !== 0} data-tab-panel>
+          <FlourishEmbed section={{ ...chart, subheading: chart.label }} index={index} />
+        </div>
+      ))}
+    </div>
+  ) : <p class="more-data-empty">Additional visualizations have not been supplied.</p>}
+</section>
+<script>
+  import { enhanceTabs } from '../../scripts/tabs';
+  document.querySelectorAll<HTMLElement>('.more-data-selector[data-tabs]').forEach(enhanceTabs);
+</script>

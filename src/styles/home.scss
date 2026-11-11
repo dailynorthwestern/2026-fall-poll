@@ -2,9 +2,6 @@
   --icon-row-height: min(28%, 160px);
   --category-icon-size: 110px;
   --category-gap: 8px;
-  --arch-width: 100%;
-  --arch-position: left center;
-  --arch-offset-y: 24px;
   position: relative;
   isolation: isolate;
   display: grid;
@@ -26,25 +23,33 @@
   object-position: center bottom;
 }
 .hero-upper {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   min-height: 0;
   container-type: size;
 }
-.hero-arch-area {
-  // 90% height × the artwork's 3:2 ratio, reserving the remaining width for the letter.
+.hero-letter-spacer {
+  // Retain the letter's existing grid boundary independently of the image layer.
   width: min(60cqw, 135cqh);
-  min-height: 0;
   min-width: 0;
+  min-height: 0;
+}
+.hero-arch-area {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 .hero-arch {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   display: block;
-  width: var(--arch-width);
-  max-width: 100%;
-  height: 90%;
-  object-fit: contain;
-  object-position: var(--arch-position);
-  transform: translateY(min(var(--arch-offset-y), 10%));
+  width: 110%;
+  max-width: none;
+  height: auto;
 }
 .category-row {
   color: var(--poll-dark-brown);
@@ -117,38 +122,42 @@
 }
 
 .hero-letter {
+  position: relative;
+  z-index: 1;
   --letter-max-width: 42rem;
   --letter-font-size: clamp(0.85rem, 1.05vw, 1.15rem);
+  --letter-offset-x: 0px; // Positive moves the whole text box right.
+  --letter-offset-y: 0px; // Positive moves the whole text box down.
+  --letter-line-height: 1.6;
+  --letter-paragraph-spacing: 1em;
   display: grid;
   place-items: center;
   min-width: 0;
   min-height: 0;
   padding: clamp(12px, 2vw, 32px);
-  text-align: center;
+  text-align: left;
   color: var(--poll-dark-brown);
   overflow: auto;
 }
-.hero-letter-content { width: 100%; max-width: var(--letter-max-width); margin-block: auto; }
-.hero-letter h2 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(1.15rem, 1.7vw, 1.8rem);
-  line-height: 1.25;
-  margin: 0 0 1em;
+.hero-letter-content {
+  width: 100%;
+  max-width: var(--letter-max-width);
+  margin-block: auto;
+  transform: translate(var(--letter-offset-x), var(--letter-offset-y));
 }
 .hero-letter p {
   font-family: var(--font-editorial);
   font-size: var(--letter-font-size);
-  line-height: 1.6;
+  line-height: var(--letter-line-height);
   white-space: pre-line;
-  margin: 0 0 1em;
+  margin: 0 0 var(--letter-paragraph-spacing);
 }
 .hero-letter .hero-letter-signature { font-family: var(--font-secondary); margin-bottom: 0; }
 @media (max-width: 900px) {
   .homepage-main:has(.hero-letter) { height: auto; }
   .home-hero { height: auto; grid-template-rows: auto 120px; }
   .hero-upper { grid-template-columns: minmax(0, 1fr); container-type: normal; }
-  .hero-arch-area { width: 100%; height: min(50dvh, 420px); }
+  .hero-letter-spacer { width: 100%; height: min(50dvh, 420px); }
   .hero-letter { --letter-font-size: 1rem; padding: 24px; overflow: visible; }
 }
 
@@ -158,7 +167,7 @@
   position: absolute;
   inset: var(--category-background-top, 100%) 0 0;
   z-index: -1;
-  background: var(--poll-light-brown);
+  background: var(--poll-yellow);
   opacity: 0.5;
   pointer-events: none;
 }

@@ -8,7 +8,7 @@
   --chart-min-height: 420px;
   padding-block: 56px 72px;
 }
-.story-introduction { max-width: var(--story-intro-width); margin: 0 auto 72px; }
+.story-introduction { width: 100%; max-width: none; margin: 0 auto 72px; }
 .story-topic, .story-byline { font-family: var(--font-secondary); }
 .story-topic { color: var(--poll-dark-red); }
 .story-introduction h1 { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.15; margin-block: 20px 28px; }

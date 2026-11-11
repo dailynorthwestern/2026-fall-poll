@@ -1,5 +1,11 @@
 // Replace placeholders with supplied editorial content. Add or remove sections as needed.
 export default {
+  moreData: [
+    { id: 'additional-1', label: '2026 midterm elections', flourishId: 30848853 },
+    { id: 'additional-2', label: 'Voting', flourishId: 30790589 },
+    { id: 'additional-3', label: 'President Trump', flourishId: 30806388 },
+    { id: 'additional-4', label: 'Social media ', flourishId: 30790711 }
+  ],
   "topic": "National Politics",
   "headline": "Liberals lead NU political engagement, dominate undergraduate political affiliation",
   "blurb": "As the 2026 midterm elections come to a close, student engagement in politics has become increasingly important. Students with various ideologies have reported engaging differently with politics, and their beliefs influence their willingness to participate in civic processes such as voting.",

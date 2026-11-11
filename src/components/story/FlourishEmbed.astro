@@ -1,7 +1,7 @@
 ---
 const { section, index } = Astro.props;
 // Accept numeric IDs or public Flourish visualization / embed URLs.
-let id = section.flourishId ? String(section.flourishId) : null;
+let id = section.flourishId ? String(section.flourishId).trim() : null;
 if (!id && section.flourishUrl) {
   const url = new URL(section.flourishUrl);
   if (!['public.flourish.studio', 'flo.uri.sh', 'app.flourish.studio'].includes(url.hostname)) {
@@ -17,10 +17,7 @@ if ((id && !/^\d+$/.test(id)) || (section.flourishUrl && !id)) {
 <figure class="story-chart" data-chart-panel data-index={index} aria-label={section.subheading}>
   {id ? (
     <div class="flourish-embed" data-src={`visualisation/${id}`}>
-      <script is:inline async src="https://public.flourish.studio/resources/embed.js"></script>
-      <noscript>
-        <a href={`https://public.flourish.studio/visualisation/${id}/`}>View this visualization on Flourish</a>
-      </noscript>
+      <noscript><a href={`https://public.flourish.studio/visualisation/${id}/`}>View this visualization on Flourish</a></noscript>
     </div>
   ) : (
     <div class="chart-placeholder">
@@ -29,3 +26,8 @@ if ((id && !/^\d+$/.test(id)) || (section.flourishUrl && !id)) {
     </div>
   )}
 </figure>
+
+<script>
+  import { initializeVisibleFlourish } from '../../scripts/flourish';
+  void initializeVisibleFlourish();
+</script>

@@ -1,5 +1,10 @@
 // Replace placeholders with supplied editorial content. Add or remove sections as needed.
 export default {
+  moreData: [
+    { id: 'additional-1', label: 'AI and future careers', flourishId: 30848536 },
+    { id: 'additional-2', label: 'Job prospects', flourishId: 30848558 },
+    { id: 'additional-3', label: 'Job market influence on career ', flourishId: 30849193 },
+  ],
   "topic": "Career",
   "headline": "Students, especially seniors, are concerned about job prospects after college",
   "blurb": "Many Northwestern students expressed worries about their future career prospects. Numerous factors, from class standing to political affiliation, influenced the extent of students’ concern.",
