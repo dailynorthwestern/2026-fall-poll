@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import { categories, pageUrl } from '../data/navigation.js';
+import sports from '../assets/sports.png';
+import wellbeing from '../assets/wellbeing.png';
+import career from '../assets/career.png';
+import ai from '../assets/AI.png';
+import nationalPolitics from '../assets/national_politics.png';
+import nuIssues from '../assets/nu_issues.png';
+const { side } = Astro.props;
+const images = { sports, wellbeing, career, ai, 'national-politics': nationalPolitics, 'nu-issues': nuIssues };
+const items = side === 'left' ? categories.slice(0, 3) : categories.slice(3);
+---
+<ul class:list={['category-column', `category-column--${side}`]} aria-label={`${side === 'left' ? 'Sports, wellbeing and career' : 'AI, national politics and NU issues'} categories`}>
+  {items.map(({ title, slug }) => (
+    <li>
+      <a class="category-link" href={pageUrl(slug)}>
+        <Image class="category-icon" src={images[slug]} alt="" width={240} height={240} widths={[80, 160, 240]} sizes="(max-width: 700px) 64px, 140px" format="webp" />
+        <span>{title}</span>
+      </a>
+    </li>
+  ))}
+</ul>

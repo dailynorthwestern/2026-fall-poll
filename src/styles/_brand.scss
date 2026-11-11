@@ -1,0 +1,72 @@
+// Shared masthead and footer, styled with the poll palette.
+.site-header {
+  position: relative;
+  z-index: 40;
+  height: var(--header-height);
+  background: var(--white);
+  border-bottom: 1px solid var(--poll-peach);
+}
+.header-inner {
+  width: var(--shell);
+  height: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.masthead img {
+  display: block;
+  width: min(430px, 45vw);
+  height: auto;
+  max-height: 60px;
+}
+.header-action {
+  width: max-content;
+  padding: 0.65rem 1.25rem;
+  background: var(--burgundy);
+  color: var(--white);
+  border: 0;
+  border-radius: 999px;
+  font-family: "source-serif-4", serif;
+  font-style: normal;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: none;
+}
+.header-action--donate { justify-self: end; }
+.site-footer {
+  font-family: var(--font-secondary);
+  font-style: normal;
+  background: var(--poll-yellow);
+  color: var(--poll-dark-brown);
+  padding: 1.75rem 0;
+}
+.footer-credits {
+  color: var(--poll-dark-brown);
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: center;
+}
+.footer-credits p { margin: 0; }
+@media (max-width: 600px) {
+  .site-header {
+    width: 100%;
+    z-index: 60;
+    isolation: isolate;
+    background: var(--white);
+  }
+  .header-inner { grid-template-columns: 1fr auto; }
+  .masthead { justify-self: start; font-size: 1.3rem; }
+  .header-action--subscribe { display: none; }
+  .header-action--donate { font-size: 0.62rem; }
+}

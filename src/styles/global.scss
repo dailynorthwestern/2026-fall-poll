@@ -1,0 +1,99 @@
+@use "brand";
+:root {
+  // Poll palette and typography: shared by all pages.
+  --poll-yellow: #FFF6cc;
+  --poll-dark-brown: #573425;
+  --poll-peach: #EFBD89;
+  --poll-light-brown: #AC663e;
+  --poll-orange: #D77B17;
+  --poll-dark-red: #7D2500;
+  --font-heading: "rafaella", sans-serif;
+  --font-secondary: "bree-serif", serif;
+  --font-editorial: Georgia, "Times New Roman", serif;
+  --background-primary: var(--poll-yellow);
+  --burgundy: var(--poll-dark-red);
+  --ink: var(--poll-dark-brown);
+  --white: #fff;
+  --header-height: 72px;
+  --shell: min(1320px, calc(100vw - 64px));
+  color: var(--ink);
+  background: var(--background-primary);
+  font-family: var(--font-editorial);
+  font-synthesis: none;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-style: normal;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+body {
+  margin: 0;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+:focus-visible {
+  outline: 3px solid var(--poll-dark-red);
+  outline-offset: 5px;
+}
+.shell {
+  width: var(--shell);
+  margin-inline: auto;
+}
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  transform: translateY(-160%);
+  background: var(--poll-yellow);
+  padding: 0.8rem 1rem;
+}
+.skip-link:focus {
+  transform: none;
+}
+main {
+  flex: 1;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+// Keep responsive tokens after the base :root so they override its defaults.
+// Values match new-ryan-field/src/styles/global.css.
+@media (max-width: 900px) {
+  :root {
+    --shell: min(100% - 40px, 720px);
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --header-height: 58px;
+    --shell: calc(100vw - 32px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

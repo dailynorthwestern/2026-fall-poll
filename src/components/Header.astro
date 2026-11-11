@@ -1,0 +1,13 @@
+---
+// Adapted from new-ryan-field/src/components/Header.astro (see README).
+const { wordmarkSrc = `${import.meta.env.BASE_URL}images/dailynu-wordmark.svg` } = Astro.props;
+---
+<header class="site-header">
+  <div class="header-inner">
+    <a class="header-action header-action--subscribe" href="https://dailynorthwestern.com/email/">Subscribe</a>
+    <a class="masthead" href="#top" aria-label="The Daily Northwestern home">
+      {wordmarkSrc ? <img src={wordmarkSrc} alt="The Daily Northwestern" /> : <span>The Daily Northwestern</span>}
+    </a>
+    <a class="header-action header-action--donate" href="https://dailynorthwestern.com/2026/08/01/uncategorized/support-the-daily/">Donate</a>
+  </div>
+</header>

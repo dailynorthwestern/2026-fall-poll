@@ -1,0 +1,40 @@
+---
+import '../styles/global.scss';
+const {
+  title = '2026 Fall Poll',
+  description = '2026 fall poll from The Daily Northwestern.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} | The Daily Northwestern</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#FFF6cc" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}favicon.png`} />
+  <link rel="stylesheet" href="https://use.typekit.net/ryk0qlm.css" />
+  <link rel="stylesheet" href="https://use.typekit.net/aaq5gnu.css" />
+  <slot name="head" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <slot />
+  <script>
+    function configureExternalLinks() {
+      for (const link of document.querySelectorAll<HTMLAnchorElement>('a[href]')) {
+        const url = new URL(link.href, window.location.href);
+        if (!['http:', 'https:'].includes(url.protocol) || url.origin === window.location.origin) continue;
+        link.target = '_blank';
+        link.relList.add('noopener', 'noreferrer');
+      }
+    }
+    configureExternalLinks();
+    document.addEventListener('astro:page-load', configureExternalLinks);
+  </script>
+</body>
+</html>

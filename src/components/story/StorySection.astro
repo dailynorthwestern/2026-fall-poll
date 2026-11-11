@@ -1,0 +1,17 @@
+---
+import FlourishEmbed from './FlourishEmbed.astro';
+const { section, index } = Astro.props;
+---
+<section class="story-step" id={section.id} data-story-step data-index={index} aria-labelledby={`${section.id}-heading`}>
+  <div class="story-copy">
+    <h2 id={`${section.id}-heading`}>{section.subheading}</h2>
+    {section.paragraphs.map(paragraph => (
+      <p>{typeof paragraph === 'string' ? paragraph : paragraph.map(part => (
+        typeof part === 'string' ? part : <a href={part.href}>{part.text}</a>
+      ))}</p>
+    ))}
+  </div>
+  <div class="story-mobile-chart" data-chart-slot>
+    <FlourishEmbed section={section} index={index} />
+  </div>
+</section>

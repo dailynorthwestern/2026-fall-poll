@@ -1,0 +1,13 @@
+---
+import PollLayout from './PollLayout.astro';
+import StoryIntroduction from '../components/story/StoryIntroduction.astro';
+import Scrollytelling from '../components/story/Scrollytelling.astro';
+import '../styles/story.scss';
+const { story } = Astro.props;
+---
+<PollLayout title={`${story.topic} | 2026 Fall Poll`}>
+  <article class="shell poll-story">
+    <StoryIntroduction {...story} />
+    <Scrollytelling sections={story.sections} />
+  </article>
+</PollLayout>

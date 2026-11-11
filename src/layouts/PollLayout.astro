@@ -1,0 +1,33 @@
+---
+import Layout from './Layout.astro';
+import ScrollingHeaders from '../components/ScrollingHeaders.astro';
+import Footer from '../components/Footer.astro';
+const { title = '2026 Fall Poll', description, fitHomepage = false } = Astro.props;
+
+const credits = [
+  { role: 'Editor in Chief', name: 'Anavi Prakash' },
+  { role: 'Web Developer', name: 'Eunice Lee' },
+  { role: 'Creative Director', name: 'Cayla Labgold-Carroll' },
+  { role: 'City Editor', name: 'Claire Coffey' },
+  { role: 'Illustrations Editor', name: 'Charlotte Nagel' },
+];
+---
+<Layout title={title} description={description}>
+  <ScrollingHeaders />
+  <main id="main-content" tabindex="-1" class:list={{ 'homepage-main': fitHomepage }}>
+    <slot />
+  </main>
+  <Footer credits={credits} />
+</Layout>
+
+<style>
+  .homepage-main {
+    /* ResizeObserver measures the full masthead and wrapped navigation. */
+    height: max(0px, calc(100dvh - var(--site-chrome-height, 154px)));
+    min-height: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    flex: none;
+  }
+</style>

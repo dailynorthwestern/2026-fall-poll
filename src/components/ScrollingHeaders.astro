@@ -1,0 +1,83 @@
+---
+import Header from './Header.astro';
+import Navigation from './Navigation.astro';
+---
+<div class="scrolling-headers" data-scrolling-headers>
+  <Header />
+  <Navigation />
+</div>
+
+<style>
+  .scrolling-headers {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    flex-shrink: 0;
+    transform: translateY(0);
+    transition: transform 240ms ease;
+  }
+  .scrolling-headers[data-hidden] {
+    transform: translateY(calc(-1 * var(--header-height)));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scrolling-headers { transition: none; }
+  }
+</style>
+
+<script>
+  const headers = document.querySelector<HTMLElement>('[data-scrolling-headers]');
+  if (headers) {
+    let previousY = Math.max(0, window.scrollY);
+    let direction = 0;
+    let distance = 0;
+    let scheduled = false;
+    const masthead = headers.querySelector<HTMLElement>('.site-header');
+
+    function reveal() {
+      headers!.removeAttribute('data-hidden');
+      if (masthead) masthead.inert = false;
+    }
+
+    function update() {
+      scheduled = false;
+      // Clamp touch overscroll so bouncing at either edge cannot reverse direction.
+      const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      const y = Math.min(maxY, Math.max(0, window.scrollY));
+      const delta = y - previousY;
+      previousY = y;
+      if (y <= 0) {
+        reveal();
+        direction = 0;
+        distance = 0;
+        return;
+      }
+      if (!delta) return;
+      const nextDirection = Math.sign(delta);
+      if (nextDirection !== direction) distance = 0;
+      direction = nextDirection;
+      distance += Math.abs(delta);
+      // Ignore tiny scroll noise, without delaying a deliberate direction change.
+      if (distance < 6) return;
+      if (direction < 0 || headers!.contains(document.activeElement)) {
+        reveal();
+      } else {
+        headers!.setAttribute('data-hidden', '');
+        if (masthead) masthead.inert = true;
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!scheduled) {
+        scheduled = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    headers.addEventListener('focusin', reveal);
+
+    // Measure wrapped navigation and font changes without changing its flow space.
+    const observer = new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--site-chrome-height', `${headers.offsetHeight}px`);
+    });
+    observer.observe(headers);
+  }
+</script>

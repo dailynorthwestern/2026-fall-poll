@@ -1,0 +1,16 @@
+---
+import PollLayout from './PollLayout.astro';
+const { title } = Astro.props;
+---
+<PollLayout title={`${title} | 2026 Fall Poll`}>
+  <section class="shell category-page">
+    <h1>{title}</h1>
+    <slot><p>Content coming soon.</p></slot>
+  </section>
+</PollLayout>
+
+<style>
+  .category-page { padding-block: 48px 80px; }
+  h1 { margin: 0 0 24px; font-size: clamp(2rem, 5vw, 3.5rem); }
+  p { font-size: 1.15rem; line-height: 1.6; }
+</style>

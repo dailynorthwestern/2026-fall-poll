@@ -1,0 +1,9 @@
+---
+const { topic, headline, blurb, reporter } = Astro.props;
+---
+<header class="story-introduction">
+  <p class="story-topic">{topic} · Fall 2026 Poll</p>
+  <h1>{headline}</h1>
+  <p class="story-blurb">{blurb}</p>
+  <p class="story-byline">By {reporter}</p>
+</header>

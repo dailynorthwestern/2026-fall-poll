@@ -1,0 +1,13 @@
+---
+import PollLayout from '../layouts/PollLayout.astro';
+import CategoryColumn from '../components/CategoryColumn.astro';
+import '../styles/home.scss';
+---
+<PollLayout fitHomepage>
+  <section class="home-hero" aria-label="The Daily’s Fall 2026 Poll">
+    <h1 class="visually-hidden">The Daily’s Fall 2026 Poll</h1>
+    <CategoryColumn side="left" />
+    <img class="hero-image" src={`${import.meta.env.BASE_URL}assets/hero.jpeg`} alt="A NU Leaf: The Daily’s Fall 2026 Poll. An illustrated campus arch with autumn leaves and a bar chart." width="3000" height="2000" fetchpriority="high" />
+    <CategoryColumn side="right" />
+  </section>
+</PollLayout>

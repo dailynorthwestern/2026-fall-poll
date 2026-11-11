@@ -1,0 +1,9 @@
+---
+// Optional project credits supplied by the page.
+const { credits = [] } = Astro.props;
+---
+<footer class="site-footer">
+  <div class="shell footer-credits" aria-label="Project credits">
+    {credits.map(({ role, name }) => <p>{role} | {name}</p>)}
+  </div>
+</footer>
