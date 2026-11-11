@@ -9,10 +9,10 @@ npm install
 npm run dev
 ```
 
-## Build
+## Build (WHEN BUILDING BEFORE UPLOADING TO CYBERDUCK)
 
 ```sh
-npm run build
+SITE_BASE=/f26poll/ npm run build
 npm run preview
 ```
 
