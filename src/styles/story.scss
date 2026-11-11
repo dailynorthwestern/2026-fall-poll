@@ -82,3 +82,15 @@
   min-width: 0;
   max-width: 100%;
 }
+
+// Sports Analysis only; More Data and other topics retain their existing widths.
+.poll-story[data-story-topic="Sports"] .scrollytelling--stacked .story-mobile-chart {
+  --sports-analysis-chart-width: 80%;
+  width: var(--sports-analysis-chart-width);
+  margin-inline: auto;
+}
+@media (max-width: 900px) {
+  .poll-story[data-story-topic="Sports"] .scrollytelling--stacked .story-mobile-chart {
+    --sports-analysis-chart-width: 100%;
+  }
+}

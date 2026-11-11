@@ -2,18 +2,18 @@
 import PollLayout from './PollLayout.astro';
 import StoryIntroduction from '../components/story/StoryIntroduction.astro';
 import Scrollytelling from '../components/story/Scrollytelling.astro';
-import PersistentScrollytelling from '../components/story/PersistentScrollytelling.astro';
-import '../styles/persistent-story.scss';
+import PairedScrollytelling from '../components/story/PairedScrollytelling.astro';
+import '../styles/paired-story.scss';
 import CategoryTabs from '../components/story/CategoryTabs.astro';
 import '../styles/story.scss';
 import '../styles/story-tabs.scss';
 const { story, sectionLayout = 'side-by-side' } = Astro.props;
 ---
 <PollLayout title={`${story.topic} | 2026 Fall Poll`}>
-  <article class="shell poll-story">
+  <article class="shell poll-story" data-story-topic={story.topic}>
     <CategoryTabs topic={story.topic} moreData={story.moreData ?? []}>
       <StoryIntroduction {...story} />
-      {sectionLayout === 'persistent' ? <PersistentScrollytelling sections={story.sections} /> : <Scrollytelling sections={story.sections} layout={sectionLayout} />}
+      {sectionLayout === 'paired' ? <PairedScrollytelling sections={story.sections} /> : <Scrollytelling sections={story.sections} layout={sectionLayout} />}
     </CategoryTabs>
   </article>
 </PollLayout>

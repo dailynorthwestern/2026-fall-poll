@@ -16,7 +16,7 @@ if ((id && !/^\d+$/.test(id)) || (section.flourishUrl && !id)) {
 ---
 <figure class="story-chart" data-chart-panel data-index={index} aria-label={section.subheading}>
   {id ? (
-    <div class="flourish-embed" data-src={`visualisation/${id}`}>
+    <div class="flourish-embed" data-src={`visualisation/${id}`} data-height={section.flourishHeight}>
       <noscript><a href={`https://public.flourish.studio/visualisation/${id}/`}>View this visualization on Flourish</a></noscript>
     </div>
   ) : (

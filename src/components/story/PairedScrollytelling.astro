@@ -1,0 +1,11 @@
+---
+import StorySection from './StorySection.astro';
+const { sections } = Astro.props;
+---
+<div class="paired-story" data-paired-story>
+  {sections.map((section, index) => <StorySection section={section} index={index} />)}
+</div>
+<script>
+  import { initializePairedStories } from '../../scripts/paired-story';
+  initializePairedStories();
+</script>

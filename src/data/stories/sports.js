@@ -1,3 +1,6 @@
+// Fixed embed height for Sports Analysis charts only; Flourish lays out the chart within this height.
+const SPORTS_ANALYSIS_CHART_HEIGHT = '500px';
+
 // Replace placeholders with supplied editorial content. Add or remove sections as needed.
 export default {
   moreData: [
@@ -17,6 +20,7 @@ export default {
         `Among all four classes, there was a roughly even distribution of those who never attend NU sporting events. One-third of first-years attend sometimes and about 28% attend rarely.`,
         `No seniors said they always attended NU sporting events but 43% said they attended sometimes. About 11% of juniors said they attended NU sporting events very often, the highest of any class.`
       ],
+      flourishHeight: SPORTS_ANALYSIS_CHART_HEIGHT,
       "flourishId": 30872382,
       "flourishUrl": null
     },
@@ -27,6 +31,7 @@ export default {
         `Juniors reported the highest level of engagement with NU sports, with about 28% saying they believe NU sports are an important part of college life. First-years followed, with about 19% saying they agree.`,
         `Juniors simultaneously reported some of the lowest rates of engagement, with 26% reporting that they do not agree with the statement.`
       ],
+      flourishHeight: SPORTS_ANALYSIS_CHART_HEIGHT,
       "flourishId": 30862473,
       "flourishUrl": null
     },
@@ -36,6 +41,7 @@ export default {
       "paragraphs": [
         `The percentage of students who reported sports are not important to their college experience decreased from about 33% to about 20% from the spring to the fall. The rate of those who said sports are at least somewhat important to their experience increased from 24.5% to 49.2%.`
       ],
+      flourishHeight: SPORTS_ANALYSIS_CHART_HEIGHT,
       "flourishId": 30872420,
       "flourishUrl": null
     }
