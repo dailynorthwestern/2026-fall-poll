@@ -25,7 +25,7 @@ export default {
       "paragraphs": [
         `Maybe ‘senioritis’ is real. About one in every ten senior respondents reported using AI very often to complete their schoolwork, and more than half of the class said they use AI at least sometimes.`,
         `First-years reported the lowest rates of usage with around a quarter of respondents reporting they never use AI to complete their school work. An additional 39.9% of first-year respondents reported rare usage only. On the other end of the spectrum, sophomores reported the greatest overall AI usage, with 87.8% saying that they use it, whether it be rarely, very often, or a level in between.`,
-        `No junior respondents said they use AI “very often”, although 34.2% reported using AI often for schoolwork.`
+        `No junior respondents said they use AI “very often,” although 34.2% reported using AI often for schoolwork.`
       ],
       "flourishId": 30808981,
       "flourishUrl": null

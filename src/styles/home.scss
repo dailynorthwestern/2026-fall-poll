@@ -186,3 +186,31 @@
   .category-row { order: 1; width: 100%; height: 120px; flex: none; }
   .hero-letter { order: 2; width: 100%; }
 }
+
+// Intermediate desktop only. Full desktop (1440px+) and mobile (900px and below)
+// retain their existing rules. Fractions below come from hero_arch.png (1952×640):
+// the upper illustration ends at source x=855; dirt on the right starts at y=563.
+@media (width > 900px) and (width < 1440px) {
+  .hero-upper {
+    --hero-art-scale: 1.1; // Matches the unchanged desktop image width of 110%.
+    --hero-letter-clearance: clamp(12px, 1.5vw, 22px);
+    --hero-art-right-edge: calc(100cqw * var(--hero-art-scale) * 855 / 1952);
+    --hero-dirt-height: calc(100cqw * var(--hero-art-scale) * 77 / 1952);
+  }
+  .hero-letter-spacer {
+    width: max(min(60cqw, 135cqh), calc(var(--hero-art-right-edge) + var(--hero-letter-clearance)));
+  }
+  .hero-letter {
+    --letter-font-size: clamp(0.8rem, 1.05vw, 1.15rem);
+    --letter-line-height: clamp(1.45em, 1.65vw, 1.6em);
+    margin-bottom: calc(var(--hero-dirt-height) + var(--hero-letter-clearance));
+    padding-inline: clamp(12px, 1.5vw, 22px);
+    padding-block: clamp(8px, 1vh, 14px);
+    align-items: safe center;
+  }
+  .hero-letter-content {
+    // Keep the entire box inside its grid track, regardless of desktop offsets.
+    transform: none;
+    max-width: min(100%, var(--letter-max-width));
+  }
+}
