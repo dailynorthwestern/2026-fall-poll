@@ -174,3 +174,15 @@
 @media (max-width: 900px) {
   .hero-letter { color: var(--poll-dark-brown); }
 }
+
+// Mobile-only order: full-width original illustration, icons, then editor letter.
+@media (max-width: 900px) {
+  .home-hero { display: flex; flex-direction: column; }
+  .hero-upper { display: contents; }
+  .hero-letter-spacer { display: none; }
+  .hero-arch-area { position: static; overflow: visible; order: 0; width: 100%; }
+  .hero-arch-area picture { display: block; width: 100%; }
+  .hero-arch { position: static; width: 100%; max-width: 100%; height: auto; }
+  .category-row { order: 1; width: 100%; height: 120px; flex: none; }
+  .hero-letter { order: 2; width: 100%; }
+}

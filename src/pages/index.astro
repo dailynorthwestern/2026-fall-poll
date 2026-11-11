@@ -11,7 +11,10 @@ import '../styles/home.scss';
     <div class="hero-upper">
     <div class="hero-letter-spacer" aria-hidden="true"></div>
     <div class="hero-arch-area">
+      <picture>
+        <source media="(max-width: 900px)" srcset={`${import.meta.env.BASE_URL}assets/hero_arch_og.png`} width="3000" height="2000" />
       <img class="hero-arch" src={`${import.meta.env.BASE_URL}assets/hero_arch.png`} alt="A NU Leaf: The Daily’s Fall 2026 Poll. An illustrated campus arch with autumn leaves and a bar chart." width="1952" height="640" fetchpriority="high" />
+      </picture>
     </div>
     <aside class="hero-letter" aria-label="Letter from the Editor">
       <div class="hero-letter-content">
