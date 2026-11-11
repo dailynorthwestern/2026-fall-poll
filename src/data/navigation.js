@@ -11,7 +11,7 @@ export const categories = [
 
 export const navigation = [
   { title: 'Home', slug: '' },
-  ...['sports', 'wellbeing', 'career', 'ai', 'national-politics', 'nu-issues']
+  ...['nu-issues','ai', 'wellbeing', 'career', 'sports', 'national-politics']
     .map(slug => categories.find(category => category.slug === slug)),
   { title: 'Methodology', slug: 'methodology' },
   { title: 'Quiz', href: 'https://dailynorthwestern.com/2026/11/09/games/polling-quiz-how-well-do-you-know-your-peers-2/' },
