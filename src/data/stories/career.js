@@ -1,7 +1,7 @@
 // Replace placeholders with supplied editorial content. Add or remove sections as needed.
 export default {
   moreData: [
-    { id: 'additional-1', label: 'AI and future careers', flourishId: 30848536 },
+    { id: 'additional-1', label: 'AI and Future careers', flourishId: 30848536 },
     { id: 'additional-2', label: 'Job prospects', flourishId: 30848558 },
     { id: 'additional-3', label: 'Job market influence on career ', flourishId: 30849193 },
   ],

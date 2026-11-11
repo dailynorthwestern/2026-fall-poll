@@ -1,0 +1,34 @@
+---
+import PollLayout from '../layouts/PollLayout.astro';
+import '../styles/story.scss';
+---
+<PollLayout title="Methodology">
+  <article class="poll-story methodology-page">
+    <h1>Methodology</h1>
+    <p>Responses to The Daily Fall 2026 Poll were collected between Oct. 12 and Oct. 26. The poll was administered through a digital form limited to respondents with Northwestern student emails, allowing only one response per email address. The poll was distributed through social media, email lists, in-person polling stations and posters with QR codes. In total, 450 undergraduate students at NU responded to the poll.</p>
+    <p>Results were weighted to correct for sampling biases and better represent the University’s undergraduate population. Weighting adjustments were applied by gender, class year and academic school in accordance with NU’s public data.</p>
+    <p>Although weighting improves the balance of demographics, it cannot make the sample random or completely representative. The poll remains subject to sampling bias, but the survey’s broad range of topics aimed to mitigate partisan bias from students with strong views on particular issues.</p>
+    <p>Some open responses were aggregated into existing or new categories as part of the data cleaning process. The Daily does not publish individual response data.</p>
+  </article>
+</PollLayout>
+
+<style>
+  .methodology-page {
+    --methodology-width: 80%;
+    --methodology-font-size: 1.1rem;
+    --methodology-paragraph-spacing: 24px;
+    width: var(--methodology-width);
+    max-width: var(--methodology-width);
+    text-align: left;
+  }
+  h1 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.15;
+    margin: 20px 0 28px;
+  }
+  p {
+    font-size: var(--methodology-font-size);
+    line-height: 1.85;
+    margin: 0 0 var(--methodology-paragraph-spacing);
+  }
+</style>

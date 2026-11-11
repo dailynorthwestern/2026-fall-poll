@@ -4,8 +4,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 ---
 <nav class="site-navigation" aria-label="Main navigation">
   <ul class="shell navigation-list">
-    {navigation.map(({ title, slug }) => (
-      <li><a href={pageUrl(slug)} aria-current={currentPath === pageUrl(slug).replace(/\/$/, '') ? 'page' : undefined}>{title}</a></li>
+    {navigation.map(({ title, slug, href }) => (
+      <li><a href={href ?? pageUrl(slug)} target={href ? '_blank' : undefined} rel={href ? 'noopener noreferrer' : undefined} aria-current={!href && currentPath === pageUrl(slug).replace(/\/$/, '') ? 'page' : undefined}>{title}</a></li>
     ))}
   </ul>
 </nav>
@@ -13,6 +13,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 <style lang="scss">
   .site-navigation {
     --nav-padding-y: 5px;
+    --nav-item-gap: clamp(12px, 1.5vw, 28px);
+    --nav-side-padding: clamp(16px, 3vw, 48px);
     background: var(--white);
     color: var(--poll-dark-brown);
     border-bottom: 1px solid var(--poll-peach);
@@ -23,16 +25,21 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
     z-index: 30;
   }
   .navigation-list {
-    width: 70%;
+    width: 100%;
+    max-width: none;
+    overflow-x: auto;
+    scrollbar-width: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0 20px;
+    flex-wrap: nowrap;
+    gap: var(--nav-item-gap);
     list-style: none;
-    padding: var(--nav-padding-y) 0;
+    padding: var(--nav-padding-y) var(--nav-side-padding);
     margin-block: 0;
   }
+  .navigation-list::-webkit-scrollbar { display: none; }
+  li { flex-shrink: 0; }
   a {
     display: flex;
     align-items: center;
@@ -44,11 +51,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
     white-space: nowrap;
   }
   a:hover, a[aria-current="page"], a:focus-visible { color: var(--poll-dark-red); }
-  @media (max-width: 1100px) {
-    .navigation-list { justify-content: center; }
-  }
   @media (max-width: 600px) {
-    .navigation-list { gap: 0 14px; }
+    .site-navigation { --nav-item-gap: 14px; }
     a { font-size: 0.9rem; }
   }
 </style>

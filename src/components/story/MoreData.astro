@@ -2,8 +2,7 @@
 import FlourishEmbed from './FlourishEmbed.astro';
 const { charts, prefix } = Astro.props;
 ---
-<section class="more-data" aria-labelledby={`${prefix}-more-heading`}>
-  <h2 id={`${prefix}-more-heading`}>MORE RESULTS:</h2>
+<section class="more-data" aria-label="Additional visualizations">
   {charts.length ? (
     <div class="more-data-selector" data-tabs>
       <div class="more-data-buttons" role="tablist" aria-label="Additional visualizations">

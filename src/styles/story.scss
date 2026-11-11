@@ -1,7 +1,10 @@
 .poll-story {
   width: 80%;
+  max-width: 80%;
+  min-width: 0;
+  overflow-wrap: anywhere;
   margin-inline: auto;
-  --story-intro-width: 960px;
+  --story-intro-width: 100%;
   --story-text-width: 45fr;
   --story-chart-width: 55fr;
   --story-column-gap: clamp(28px, 4vw, 64px);
@@ -72,4 +75,10 @@
 .scrollytelling--stacked .story-chart,
 .scrollytelling--stacked .flourish-embed {
   min-height: 0;
+}
+
+// Every story view shares the outer 80% page width; columns divide that space.
+.category-tabs, .scrollytelling, .story-step, .story-copy, .story-mobile-chart {
+  min-width: 0;
+  max-width: 100%;
 }
