@@ -7,7 +7,7 @@ export default {
     { id: 'additional-4', label: 'Social media ', flourishId: 30790711 }
   ],
   "topic": "National Politics",
-  "headline": "Liberals lead NU political engagement, dominate undergraduate political affiliation",
+  "headline": "Liberals lead Nu political engagement, dominate undergraduate political affiliation",
   "blurb": "As the 2026 midterm elections come to a close, student engagement in politics has become increasingly important. Students with various ideologies have reported engaging differently with politics, and their beliefs influence their willingness to participate in civic processes such as voting.",
   "reporter": "Hannah Mehler and Hannah Brooker ",
   "sections": [

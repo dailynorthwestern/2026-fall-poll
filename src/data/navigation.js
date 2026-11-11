@@ -1,11 +1,12 @@
 // Category destinations for the shared navigation.
 export const categories = [
-  { title: 'Sports', slug: 'sports' },
+  { title: 'NU Issues', slug: 'nu-issues' },
+  { title: 'AI', slug: 'ai' },
   { title: 'Wellbeing', slug: 'wellbeing' },
   { title: 'Career', slug: 'career' },
-  { title: 'AI', slug: 'ai' },
+  { title: 'Sports', slug: 'sports' },
   { title: 'National Politics', slug: 'national-politics' },
-  { title: 'NU Issues', slug: 'nu-issues' },
+  
 ];
 
 export const navigation = [

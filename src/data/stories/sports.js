@@ -6,7 +6,7 @@ export default {
     { id: 'additional-3', label: 'Ryan Field and sports engagement ', flourishId: 30848522 },
   ],
   "topic": "Sports",
-  "headline": "Opening of ryan field drives interest in nu sports",
+  "headline": "Opening of ryan field drives interest in Nu sports",
   "blurb": "After years of excitement, investment and construction, Ryan Field is open for business. And with it, a brighter spotlight is on NU sports. But how are the new stadium and the Wildcat Wall really impacting sports engagement and culture on campus?",
   "reporter": "Fiona Hagan and Yoni Zacks",
   "sections": [
