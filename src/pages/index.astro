@@ -1,13 +1,48 @@
 ---
 import PollLayout from '../layouts/PollLayout.astro';
-import CategoryColumn from '../components/CategoryColumn.astro';
+import CategoryRow from '../components/CategoryRow.astro';
+import { editorLetter } from '../data/home.js';
 import '../styles/home.scss';
 ---
 <PollLayout fitHomepage>
   <section class="home-hero" aria-label="The Daily’s Fall 2026 Poll">
     <h1 class="visually-hidden">The Daily’s Fall 2026 Poll</h1>
-    <CategoryColumn side="left" />
-    <img class="hero-image" src={`${import.meta.env.BASE_URL}assets/hero.jpeg`} alt="A NU Leaf: The Daily’s Fall 2026 Poll. An illustrated campus arch with autumn leaves and a bar chart." width="3000" height="2000" fetchpriority="high" />
-    <CategoryColumn side="right" />
+    <img class="hero-background" src={`${import.meta.env.BASE_URL}assets/hero_bg.png`} alt="" width="3000" height="2000" fetchpriority="high" />
+    <div class="hero-upper">
+    <div class="hero-arch-area">
+      <img class="hero-arch" src={`${import.meta.env.BASE_URL}assets/hero_arch.png`} alt="A NU Leaf: The Daily’s Fall 2026 Poll. An illustrated campus arch with autumn leaves and a bar chart." width="3000" height="2000" fetchpriority="high" />
+    </div>
+    <aside class="hero-letter" aria-labelledby="editor-letter-heading">
+      <div class="hero-letter-content">
+        <h2 id="editor-letter-heading">{editorLetter.heading}</h2>
+        {editorLetter.paragraphs.map(paragraph => <p>{paragraph}</p>)}
+        <p class="hero-letter-signature">{editorLetter.signature}</p>
+      </div>
+    </aside>
+    </div>
+    <CategoryRow />
   </section>
 </PollLayout>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('.home-hero');
+  const arch = hero?.querySelector<HTMLImageElement>('.hero-arch');
+  if (hero && arch) {
+    function alignCategoryBackground() {
+      if (!arch!.naturalWidth || !arch!.naturalHeight) return;
+      const imageBox = arch!.getBoundingClientRect();
+      const scale = Math.min(imageBox.width / arch!.naturalWidth, imageBox.height / arch!.naturalHeight);
+      const renderedHeight = arch!.naturalHeight * scale;
+      const position = getComputedStyle(arch!).objectPosition.split(' ')[1] ?? '50%';
+      const alignment = position === 'top' ? 0 : position === 'bottom' ? 1 : position.endsWith('%') ? parseFloat(position) / 100 : 0.5;
+      const bottom = imageBox.top + (imageBox.height - renderedHeight) * alignment + renderedHeight;
+      const offset = Math.max(0, Math.min(hero!.offsetHeight, bottom - hero!.getBoundingClientRect().top));
+      hero!.style.setProperty('--category-background-top', `${offset}px`);
+    }
+    const observer = new ResizeObserver(alignCategoryBackground);
+    observer.observe(hero);
+    observer.observe(arch);
+    arch.addEventListener('load', alignCategoryBackground);
+    alignCategoryBackground();
+  }
+</script>

@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import { categories, pageUrl } from '../data/navigation.js';
+import sports from '../assets/sports.png';
+import wellbeing from '../assets/wellbeing.png';
+import career from '../assets/career.png';
+import ai from '../assets/AI.png';
+import nationalPolitics from '../assets/national_politics.png';
+import nuIssues from '../assets/nu_issues.png';
+const images = { sports, wellbeing, career, ai, 'national-politics': nationalPolitics, 'nu-issues': nuIssues };
+---
+<ul class="category-row" aria-label="Explore poll categories">
+  {categories.map(({ title, slug }) => (
+    <li>
+      <a class="category-link" href={pageUrl(slug)}>
+        <Image class="category-icon" src={images[slug]} alt="" width={240} height={240} widths={[80, 160, 240]} sizes="(max-width: 600px) 48px, 110px" format="webp" />
+        <span>{title}</span>
+      </a>
+    </li>
+  ))}
+</ul>

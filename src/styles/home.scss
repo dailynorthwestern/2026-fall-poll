@@ -1,11 +1,14 @@
 .home-hero {
-  --hero-height: max(0px, calc(100dvh - var(--site-chrome-height, 127px)));
-  --side-min-width: 120px;
-  --hero-image-width: min(calc(var(--hero-height) * 1.5), calc(100% - 2 * var(--side-min-width)));
-  --category-icon-size: 140px;
-  --category-gap: 12px;
+  --icon-row-height: min(28%, 160px);
+  --category-icon-size: 110px;
+  --category-gap: 8px;
+  --arch-width: 100%;
+  --arch-position: left center;
+  --arch-offset-y: 24px;
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--hero-image-width) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) var(--icon-row-height);
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -13,24 +16,51 @@
   padding: 0;
   background: var(--poll-yellow);
 }
-.hero-image {
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   width: 100%;
   height: 100%;
-  min-height: 0;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: center bottom;
 }
-.category-column {
+.hero-upper {
   display: grid;
-  grid-template-rows: repeat(3, minmax(0, 1fr));
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 0;
+  container-type: size;
+}
+.hero-arch-area {
+  // 90% height × the artwork's 3:2 ratio, reserving the remaining width for the letter.
+  width: min(60cqw, 135cqh);
+  min-height: 0;
+  min-width: 0;
+}
+.hero-arch {
+  display: block;
+  width: var(--arch-width);
+  max-width: 100%;
+  height: 90%;
+  object-fit: contain;
+  object-position: var(--arch-position);
+  transform: translateY(min(var(--arch-offset-y), 10%));
+}
+.category-row {
+  color: var(--poll-dark-brown);
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: var(--category-gap);
   min-width: 0;
   min-height: 0;
   margin: 0;
-  padding: 12px 8px;
+  padding: 4px 0;
   list-style: none;
 }
-.category-column li { min-height: 0; min-width: 0; }
+.category-row li {
+  min-height: 0;
+  min-width: 0;
+}
 .category-link {
   height: 100%;
   display: flex;
@@ -42,35 +72,37 @@
   text-decoration: none;
   font-family: var(--font-secondary);
   font-size: 1rem;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 .category-icon {
-  width: var(--category-icon-size);
-  max-width: 100%;
+  width: min(100%, var(--category-icon-size));
+  height: auto;
+  max-height: calc(100% - 2.4em - 4px);
   min-height: 0;
-  flex: 0 1 auto;
   object-fit: contain;
+  flex: 0 1 auto;
   transition: transform 180ms ease;
 }
-.category-link span { flex: none; }
-.category-link:hover, .category-link:focus-visible { color: var(--poll-dark-red); }
-.category-link:hover .category-icon, .category-link:focus-visible .category-icon { transform: scale(1.05); }
+.category-link span {
+  flex: none;
+  min-height: 2.4em;
+}
+.category-link:hover,
+.category-link:focus-visible {
+  color: var(--white);
+}
+.category-link:hover .category-icon,
+.category-link:focus-visible .category-icon {
+  transform: scale(1.05);
+}
 @media (max-width: 700px) {
   .home-hero {
     --category-icon-size: 64px;
-    --category-gap: 8px;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) repeat(2, minmax(0, 0.4fr));
+    --category-gap: 4px;
   }
-  .hero-image { grid-row: 1; }
-  .category-column {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: minmax(0, 1fr);
-    padding: 4px 8px;
+  .category-link {
+    font-size: clamp(0.6rem, 1.8vw, 0.85rem);
   }
-  .category-column--left { grid-row: 2; }
-  .category-column--right { grid-row: 3; }
-  .category-link { font-size: 0.8rem; }
 }
 .visually-hidden {
   position: absolute;
@@ -82,4 +114,54 @@
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+.hero-letter {
+  --letter-max-width: 42rem;
+  --letter-font-size: clamp(0.85rem, 1.05vw, 1.15rem);
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+  padding: clamp(12px, 2vw, 32px);
+  text-align: center;
+  color: var(--poll-dark-brown);
+  overflow: auto;
+}
+.hero-letter-content { width: 100%; max-width: var(--letter-max-width); margin-block: auto; }
+.hero-letter h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.7vw, 1.8rem);
+  line-height: 1.25;
+  margin: 0 0 1em;
+}
+.hero-letter p {
+  font-family: var(--font-editorial);
+  font-size: var(--letter-font-size);
+  line-height: 1.6;
+  white-space: pre-line;
+  margin: 0 0 1em;
+}
+.hero-letter .hero-letter-signature { font-family: var(--font-secondary); margin-bottom: 0; }
+@media (max-width: 900px) {
+  .homepage-main:has(.hero-letter) { height: auto; }
+  .home-hero { height: auto; grid-template-rows: auto 120px; }
+  .hero-upper { grid-template-columns: minmax(0, 1fr); container-type: normal; }
+  .hero-arch-area { width: 100%; height: min(50dvh, 420px); }
+  .hero-letter { --letter-font-size: 1rem; padding: 24px; overflow: visible; }
+}
+
+// The measured top follows the rendered arch edge, including its contain sizing.
+.home-hero::before {
+  content: "";
+  position: absolute;
+  inset: var(--category-background-top, 100%) 0 0;
+  z-index: -1;
+  background: var(--poll-light-brown);
+  opacity: 0.5;
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .hero-letter { color: var(--poll-dark-brown); }
 }
